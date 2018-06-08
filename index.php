@@ -12,7 +12,47 @@
     <title>Menu principal</title>
   </head>
   <body>
-  <?php include_once ("header.php"); ?>
+
+  <?php include_once ("header.php"); 
+ /* ini_set('display_errors', 1);
+  ini_set('display_startup_errors', 1);
+  error_reporting(E_ALL);*/
+  function sendMail(){
+    require 'PHPMailer/src/PHPMailer.php';
+    require 'PHPMailer/src/SMTP.php';
+    require 'PHPMailer/src/Exception.php';
+try {
+  //$mail = new PHPMailer;
+  $mail = new PHPMailer\PHPMailer\PHPMailer();
+  //$mail->SMTPDebug = 3;                               // Enable verbose debug output
+  
+  $mail->IsSMTP(); // enable SMTP
+    $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+    $mail->SMTPAuth = true; // authentication enabled
+    $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
+    $mail->Host = "smtp.gmail.com";
+    $mail->Port = 465; // or 587 465
+    $mail->IsHTML(true);
+    $mail->Username = "vetenorte336@gmail.com";
+    $mail->Password = "Holamundo";
+    $mail->SetFrom("vetenorte336@gmail.com");
+    $mail->Subject = "Test";
+    $mail->Body = "Holamundofdfyjyjeyjyte";
+    $mail->AddAddress("abelardovergarasinisterra@gmail.com");
+     if(!$mail->Send()) {
+       // echo "Mailer Error: " . $mail->ErrorInfo;
+     } else {
+       // echo "Message has been sent";
+     }
+  
+} catch (Exception $e) {
+   // echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+}
+  }
+  
+  sendMail();
+  
+  ?>
 
 
 

@@ -1,5 +1,11 @@
 
-
+<?php
+ 
+if(isset($_GET["error"]) && $_GET["error"] != "login") {
+    header("Location: consulta.php");
+  }
+ 
+ ?>
 <!doctype html>
 <html lang="es">
   <head>
@@ -10,19 +16,19 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
-    <title>Consulta</title>
+    <title>Servicio</title>
   </head>
   <body>
   <?php include_once ("header.php"); ?>
 
 <div class="row">
     <div class="col-sm-4 container">
-      <form action="" method="post" style="background-color: #f5f5f5;padding: 5px; margin:20px">
-          <center><h3>Consulta</h3></center>
+      <form action="control_servicio.php?metodo=save" method="post" style="background-color: #f5f5f5;padding: 5px; margin:20px">
+          <center><h3>Servicio</h3></center>
           <div class="form-group">
             <label for="fechaconsulta">Fecha de la consulta</label>
             <input type="hidden" class="form-control" id="id" name="id">
-            <input type="date" class="form-control" id="nombre" name="nombre">
+            <input type="date" class="form-control" id="fecha" name="fecha">
           </div>
           
           <div class="form-group">
@@ -36,10 +42,25 @@
           <div class="form-group">
             <label for="nombrem">Nombre de la Mascota</label>
             <input type="text
-            " class="form-control" id="nombrem" name="nombrem" placeholder="Nombre de la Mascota">
+            " class="form-control" id="nombrem" name="nombrem" onfocus="ConsultarMascota()" placeholder="Nombre de la Mascota">
+          </div>
+
+           <div class="form-group">
+            <label for="tiposervicio">Tipo de Servisio</label>
+              <select name="servicio"  id="servicio" class="form-control">
+                <option value="" selected>Select...</option> 
+                <option value="Baño">Baño</option>
+                <option value="Corte">Corte</option>                
+                <option value="Cirugia">Cirugia</option>
+                <option value="Vacunas">Vacunas</option>
+              </select>
+          </div>
+           <div class="form-group">
+            <label for="costo">Costo del Servicio</label>
+            <input type="number" class="form-control" id="costo" name="costo" placeholder="Costo del Servico">
           </div>
                  
-          <input type="submit" value="Consultar" class="btn btn-primary btn-block"></input>
+          <input type="submit" value="Guardar" class="btn btn-primary btn-block"></input>
      </form>
 
       <script>
@@ -140,8 +161,7 @@
             });
       }
 
-      /*An array containing all the country names in the world:*/
-      var countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia & Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central Arfrican Republic","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauro","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre & Miquelon","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","St Kitts & Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad & Tobago","Tunisia","Turkey","Turkmenistan","Turks & Caicos","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States of America","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"];
+     
 
       /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
      // autocomplete(document.getElementById("nombrep"), countries);
@@ -156,13 +176,11 @@
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Fecha de Nacimiento</th>
-              <th scope="col">Raza</th>
-              <th scope="col">Peso</th>
-              <th scope="col">Sexo</th>
-              <th scope="col">Talla</th>
-              <th scope="col">Color</th>
+              <th scope="col">Fecha Consulta</th>
+              <th scope="col">Nombre del Propietario</th>
+              <th scope="col">Nombre de la Mascota</th>
+              <th scope="col">Tipo de Servicio</th>
+              <th scope="col">Costo del Servicio</th>              
               <th scope="col"></th>
             </tr>
           </thead>
@@ -186,23 +204,20 @@
         });
 
     function editar(dato){
-      $("#id").val(dato.idmascota);
-      $("#nombre").val(dato.nombre);
-      $("#nacimiento").val(dato.nacimiento);
-      $("#raza").val(dato.raza);
-      $("#peso").val(dato.peso);
-      $("#sexo").val(dato.sexo);
-      $("#talla").val(dato.talla);
-      $("#color").val(dato.color);
-
-
+      $("#id").val(dato.idconsulta);
+      $("#fecha").val(dato.fecha);
+      $("#nombrep").val(dato.nombrep);
+      $("#nombrem").val(dato.nombrem);
+      $("#servicio").val(dato.servicio);
+      $("#costo").val(dato.costo);
+      
     }
 
     function consultar()
     {     
             $.ajax({
               type : "POST",
-              url : "control_consulta.php?metodo=listar",
+              url : "control_servicio.php?metodo=listar",
               data : { 
                                                         
               },
@@ -229,6 +244,26 @@
                    var d = JSON.parse(data);
                    console.log(d.datos);
                    autocomplete(document.getElementById("nombrep"), d.datos);
+              }
+            });         
+    }
+
+    function ConsultarMascota()
+    {     
+            $.ajax({
+              type : "POST",
+              url : "control_mascota.php?metodo=ConsultarMascota",
+              data : { 
+                                                        
+              },
+              success : function( data ){
+            //  $('#t_consultas').html(data);
+                  //alert(data);
+                 //  var js_array = data;
+                   console.log(data);
+                   var d = JSON.parse(data);
+                   console.log(d.datos);
+                   autocomplete(document.getElementById("nombrem"), d.datos);
               }
             });         
     }

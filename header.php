@@ -36,16 +36,14 @@
                 <a class="nav-link dropdown-toggle" href="rooms.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Registrar</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
                   <a class="dropdown-item" href="mascota.php">Mascotas</a>
-                  <a class="dropdown-item" href="registro.php">Propietarios</a>
-                  <a class="dropdown-item" href="rooms.html">Luxury</a>
-                  <a class="dropdown-item" href="rooms.html">Deluxe</a>
+                  <a class="dropdown-item" href="registro.php">Propietarios</a>              
                 </div>
             </li>
         
             <a class="nav-item nav-link" id="historia" href="#" onclick="historia();">Historia</a>
             <a class="nav-item nav-link" href="#">Inventario</a>
-            <a class="nav-item nav-link" href="consulta.php">Consulta</a>
-            <a class="nav-item nav-link" href="#">Baño</a>
+            <a class="nav-item nav-link" href="consulta.php">Servicio</a>
+            <a class="nav-item nav-link" href="#">Send</a>
             <div>
                 <a class="nav-item nav-link" onclick="salir();">Cerrar Sesion</a>
             </div>

@@ -5,8 +5,8 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
  session_start();
-
- include_once('conexion.php');
+ 
+   include_once('conexion.php');
 
     if($_REQUEST['metodo'] == "save"){
 
@@ -22,8 +22,8 @@ error_reporting(E_ALL);
     }else{
         listar();
     }
- 
-     
+
+   
     function guardar(){
         $con = new MySQL();
         $c = $con->abrirConexion();        
